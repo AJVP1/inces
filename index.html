@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>INCES</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+      <!-- Header Section -->
+      <header>
+        <!-- logo -->
+        <div
+          class="logo-container"
+          onclick="document.getElementById('logoInput').click()"
+        >
+          <input
+            type="file"
+            id="logoInput"
+            accept="image/*"
+            style="display: none"
+            onchange="handleLogoUpload(event)"
+          />
+          <img
+            id="logoImage"
+            style="
+              display: none;
+              width: 100%;
+              height: 100%;
+              object-fit: contain;
+              border-radius: 50%;
+            "
+          />
+          <span id="logoPlaceholder">LOGO DE LA EMPRESA</span>
+        </div>
+        <!-- fecha y declaracion -->
+        <div class="header-info">
+          <div class="header-field">
+            <label>FECHA:</label>
+            <input type="date" id="fecha" autocomplete="off" />
+          </div>
+          <div class="header-field">
+            <label>TIPO DE DECLARACIÓN:</label>
+            <input type="text" id="tipoDeclaracion" autocomplete="off" />
+          </div>
+        </div>
+      </header>
+
+      <!-- Title -->
+      <div class="title">REPORTE CONSOLIDADO DE NÓMINA</div>
+
+      <!-- Company Data Section -->
+      <div class="section-header">DATOS DE LA EMPRESA APORTANTE</div>
+      <div class="contenedor">
+        <div class="form-group rif">
+          <label> RIF </label>
+          <input type="text" id="rif" autocomplete="off" />
+        </div>
+        <div class="form-group razon-social">
+          <label> RAZÓN SOCIAL </label>
+          <input type="text" id="razonSocial" autocomplete="off" />
+        </div>
+        <div class="form-group rncp">
+          <label>
+            <p>N<span class="sup">o</span></p>
+            DE RNCP
+          </label>
+          <input type="text" id="rncp" autocomplete="off" />
+        </div>
+        <div class="form-group mes">
+          <label> MES </label>
+          <input type="text" id="mes" autocomplete="off" />
+        </div>
+        <div class="form-group anio">
+          <label> AÑO </label>
+          <input type="text" id="anio" autocomplete="off" />
+        </div>
+      </div>
+
+      <!-- Declarant Data Section -->
+      <div class="section-header">DATOS DEL DECLARANTE RESPONSABLE</div>
+      <div class="contenedor">
+        <div class="form-group cedula">
+          <label> CÉDULA </label>
+          <input type="text" id="cedula" autocomplete="off" />
+        </div>
+        <div class="form-group nombres">
+          <label> NOMBRES Y APELLIDOS </label>
+          <input type="text" id="nombresApellidos" autocomplete="off" />
+        </div>
+        <div class="form-group cargo">
+          <label> CARGO </label>
+          <input type="text" id="cargo" autocomplete="off" />
+        </div>
+        <div class="form-group telefono">
+          <label>
+            <p>N<span class="sup">o</span></p>
+            TELEFÓNICO
+          </label>
+          <input type="tel" id="telefono" autocomplete="off" />
+        </div>
+      </div>
+
+      <!-- Payroll Consolidated Section -->
+      <div class="section-header">CONSOLIDADO DE NÓMINAS DECLARADAS</div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Nivel organizacional</th>
+              <th>Cant. Trabajadores</th>
+              <th>Total monto Nómina</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="level-label">Superior</div></td>
+              <td>
+                <input
+                  type="number"
+                  id="cantSuperior"
+                  value="1"
+                  oninput="calcularTotal()"
+                  autocomplete="off"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  id="montoSuperior"
+                  value="1.000,00"
+                  oninput="handleMoneyInput(event)"
+                  onblur="handleMoneyBlur(event)"
+                  autocomplete="off"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><div class="level-label">Estratégico</div></td>
+              <td>
+                <input
+                  type="number"
+                  id="cantEstrategico"
+                  value="0"
+                  oninput="calcularTotal()"
+                  autocomplete="off"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  id="montoEstrategico"
+                  value="0,00"
+                  oninput="handleMoneyInput(event)"
+                  onblur="handleMoneyBlur(event)"
+                  autocomplete="off"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><div class="level-label">Operativo</div></td>
+              <td>
+                <input
+                  type="number"
+                  id="cantOperativo"
+                  value="15"
+                  oninput="calcularTotal()"
+                  autocomplete="off"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  id="montoOperativo"
+                  value="25.000,00"
+                  oninput="handleMoneyInput(event)"
+                  onblur="handleMoneyBlur(event)"
+                  autocomplete="off"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="total-row">
+          <label>Total</label>
+          <input
+            type="text"
+            id="totalTrabajadores"
+            value="16"
+            readonly
+            autocomplete="off"
+          />
+          <input
+            type="text"
+            id="totalMonto"
+            value="26.000,00"
+            readonly
+            autocomplete="off"
+          />
+        </div>
+      </div>
+
+      <!-- Signature Section -->
+      <div class="signature-section">
+        <div>
+          <div class="signature-group">
+            <label>
+              NOMBRES Y APELLIDOS DEL DECLARANTE<br />
+              CARGO
+            </label>
+          </div>
+        </div>
+        <div>
+          <div
+            class="seal-container"
+            onclick="document.getElementById('sealInput').click()"
+          >
+            <input
+              type="file"
+              id="sealInput"
+              accept="image/*"
+              style="display: none"
+              onchange="handleSealUpload(event)"
+            />
+            <img
+              id="sealImage"
+              style="
+                display: none;
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                border-radius: 50%;
+              "
+            />
+            <span id="sealPlaceholder" style="font-size: 12px; color: #666"
+              >SELLO</span
+            >
+          </div>
+          <label style="text-align: center; display: block; font-weight: bold"
+            >SELLO</label
+          >
+        </div>
+      </div>
+
+      <!-- Declaration Text -->
+      <div class="declaration">
+        Yo (<input
+          type="text"
+          class="inline-input"
+          id="declarantName"
+          placeholder="Nombre completo"
+          autocomplete="off"
+        />), titular de la cédula de identidad N
+        <input
+          type="text"
+          class="inline-input"
+          id="declarantId"
+          placeholder="V.- XX.XXX.XXX"
+          autocomplete="off"
+        />
+        quien ejerce el cargo de
+        <input
+          type="text"
+          class="inline-input"
+          id="declarantPosition"
+          placeholder="Cargo del declarante"
+          autocomplete="off"
+        />, declaro bajo Fe de juramento que la información suministrada a
+        través de la Plataforma
+        <input
+          type="text"
+          class="inline-input"
+          id="platformName"
+          placeholder="Nombre de la plataforma"
+          autocomplete="off"
+        />
+        es fidedigna, por la cual me someto a la posterior revisión por parte
+        del <strong>INCES</strong> y en caso de que la misma posea
+        incongruencia, me someteré a las respectivas sanciones establecidas en
+        el <strong>Código Orgánico tributario</strong>, la
+        <strong>Constitución de la República Bolivariana de Venezuela</strong> y
+        demás normas y leyes de rango legal y sub legal.
+      </div>
+    </main>
+
+    <script>
+      function handleLogoUpload(event) {
+        const file = event.target.files[0];
+        if (file && file.type.startsWith("image/")) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const logoImage = document.getElementById("logoImage");
+            const logoPlaceholder = document.getElementById("logoPlaceholder");
+            const logoContainer = document.querySelector(".logo-container");
+
+            logoImage.src = e.target.result;
+            logoImage.style.display = "block";
+            logoImage.style.borderRadius = "0";
+            logoPlaceholder.style.display = "none";
+            logoContainer.style.border = "none";
+            logoContainer.style.borderRadius = 0;
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+
+      function handleSealUpload(event) {
+        const file = event.target.files[0];
+        if (file && file.type.startsWith("image/")) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const sealImage = document.getElementById("sealImage");
+            const sealPlaceholder = document.getElementById("sealPlaceholder");
+            const sealContainer = document.querySelector(".seal-container");
+
+            sealImage.src = e.target.result;
+            sealImage.style.display = "block";
+            sealImage.style.borderRadius = "0";
+            sealPlaceholder.style.display = "none";
+            sealContainer.style.border = "none";
+            sealContainer.style.borderRadius = "0";
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+
+      // Format number to European format (10.000,00)
+      function formatNumber(value) {
+        if (!value) return "";
+
+        // Remove all non-numeric characters except comma and dot
+        let num = value.toString().replace(/[^\d,.-]/g, "");
+
+        // Convert comma to dot for parsing
+        num = num.replace(",", ".");
+
+        // Parse to float
+        const floatValue = parseFloat(num);
+        if (isNaN(floatValue)) return "";
+
+        // Format with dot as thousands separator and comma as decimal
+        return floatValue.toLocaleString("de-DE", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+      }
+
+      // Parse European format to number
+      function parseEuropeanNumber(value) {
+        if (!value) return 0;
+        // Remove dots (thousands separator) and replace comma with dot
+        return parseFloat(value.replace(/\./g, "").replace(",", ".")) || 0;
+      }
+
+      // Handle money input formatting on blur
+      function handleMoneyBlur(event) {
+        const input = event.target;
+        const numericValue = parseEuropeanNumber(input.value);
+        input.value = formatNumber(numericValue);
+        calcularTotal();
+      }
+
+      // Just calculate total while typing
+      function handleMoneyInput(event) {
+        calcularTotal();
+      }
+
+      function calcularTotal() {
+        // Calculate total workers
+        const cantSuperior =
+          parseInt(document.getElementById("cantSuperior").value) || 0;
+        const cantEstrategico =
+          parseInt(document.getElementById("cantEstrategico").value) || 0;
+        const cantOperativo =
+          parseInt(document.getElementById("cantOperativo").value) || 0;
+        const totalTrabajadores =
+          cantSuperior + cantEstrategico + cantOperativo;
+
+        // Calculate total amount (parse European format)
+        const montoSuperior = parseEuropeanNumber(
+          document.getElementById("montoSuperior").value
+        );
+        const montoEstrategico = parseEuropeanNumber(
+          document.getElementById("montoEstrategico").value
+        );
+        const montoOperativo = parseEuropeanNumber(
+          document.getElementById("montoOperativo").value
+        );
+        const totalMonto = montoSuperior + montoEstrategico + montoOperativo;
+
+        // Update totals
+        document.getElementById("totalTrabajadores").value = totalTrabajadores;
+        document.getElementById("totalMonto").value = formatNumber(totalMonto);
+      }
+
+      // Initialize totals on page load
+      window.addEventListener("DOMContentLoaded", calcularTotal);
+    </script>
+  </body>
+</html>
