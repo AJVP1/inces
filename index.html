@@ -55,26 +55,26 @@
       <div class="contenedor">
         <div class="form-group rif">
           <label> RIF </label>
-          <input type="text" id="rif" autocomplete="off" />
+          <input type="text" id="rif" />
         </div>
         <div class="form-group razon-social">
           <label> RAZÓN SOCIAL </label>
-          <input type="text" id="razonSocial" autocomplete="off" />
+          <input type="text" id="razonSocial" />
         </div>
         <div class="form-group rncp">
           <label>
             <p>N<span class="sup">o</span></p>
             DE RNCP
           </label>
-          <input type="text" id="rncp" autocomplete="off" />
+          <input type="text" id="rncp" />
         </div>
         <div class="form-group mes">
           <label> MES </label>
-          <input type="text" id="mes" autocomplete="off" />
+          <input type="text" id="mes" />
         </div>
         <div class="form-group anio">
           <label> AÑO </label>
-          <input type="text" id="anio" autocomplete="off" />
+          <input type="text" id="anio" />
         </div>
       </div>
 
@@ -83,22 +83,22 @@
       <div class="contenedor">
         <div class="form-group cedula">
           <label> CÉDULA </label>
-          <input type="text" id="cedula" autocomplete="off" />
+          <input type="text" id="cedula" />
         </div>
         <div class="form-group nombres">
           <label> NOMBRES Y APELLIDOS </label>
-          <input type="text" id="nombresApellidos" autocomplete="off" />
+          <input type="text" id="nombresApellidos" />
         </div>
         <div class="form-group cargo">
           <label> CARGO </label>
-          <input type="text" id="cargo" autocomplete="off" />
+          <input type="text" id="cargo" />
         </div>
         <div class="form-group telefono">
           <label>
             <p>N<span class="sup">o</span></p>
             TELEFÓNICO
           </label>
-          <input type="tel" id="telefono" autocomplete="off" />
+          <input type="tel" id="telefono" />
         </div>
       </div>
 
@@ -196,7 +196,7 @@
           <input
             type="text"
             id="totalMonto"
-            value="26.000,00"
+            value="0,00"
             readonly
             autocomplete="off"
           />
@@ -378,7 +378,7 @@
 
       // Format number to European format (10.000,00)
       function formatNumber(value) {
-        if (!value) return "";
+        if (value === null || value === undefined) return "";
 
         // Remove all non-numeric characters except comma and dot
         let num = value.toString().replace(/[^\d,.-]/g, "");
